@@ -4,9 +4,19 @@ include_once('acmapi.php');
 
 class Feynman extends AcmApi{
 
+	/**
+	 * Método constructor, invoca el metodo constructor de la clase padre AcmApi.
+	 */
+
 	function __construct(){
 		parent::__construct('feynman');
 	}
+
+	/**
+	 * Método público principal que se encarga de iniciar el proceso de desarrollo del problema,
+	 * lee cada una de las lineas del archivo de entrada e inicia los atributos de la clase.
+	 * @return boolean
+	 */
 
 	public function resolve_challenge(){
 		$this->read_file();
@@ -17,10 +27,19 @@ class Feynman extends AcmApi{
 		    		echo $this->calculate_square( (int)$line ).'<br />';
 		    }
 	    }
+
+	    return true;
 	}
 
-	function calculate_square( $n = 0 ){
-		if( $n == 0 ){
+	/**
+	 * Método recursivo que se encarga de iterar el calculo de cuantos cuadrados caben en un
+	 * cuadrado de NxN, recibe como parametro el tamaño del cuadrado N.
+	 * @param int $n 
+	 * @return int
+	 */
+
+	private function calculate_square( $n = 0 ){
+		if( $n <= 0 ){
 			return 0;
 		}
 		elseif( $n == 1 ){
@@ -34,5 +53,4 @@ class Feynman extends AcmApi{
 
 $feynman = new Feynman();
 $feynman->resolve_challenge();
-
 ?>
