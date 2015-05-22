@@ -43,8 +43,8 @@ class Electricity extends AcmApi{
 	    			$this->reset_values();
 	    			$this->init++;
 
-	    			if(!$this->position){
-	    				$this->qtty_dates = $line+0;
+	    			if( !$this->position && (int)$line >= 2 && (int)$line <= pow(10, 3) ){
+	    				$this->qtty_dates = (int)$line;
 	    				$this->position++;
 	    			}
 	    		}
@@ -89,7 +89,9 @@ class Electricity extends AcmApi{
 	 */
 
 	private function extract_dates( $d = '', $m = '', $y = '' ){
-		@$time         = strtotime( $y.'-'.$m.'-'.$d );
+		$time = 0;
+		if( (int)$d >= 1 && (int)$d <= 31 && (int)$m >= 1 && (int)$m <= 12 && (int)$y >= 1900 && (int)$y <= 2100 )
+			@$time = strtotime( $y.'-'.$m.'-'.$d );
 		$this->dates[] = $time;
 
 		return true;
@@ -104,7 +106,8 @@ class Electricity extends AcmApi{
 	 */
 
 	private function extract_consumption( $c = 0 ){
-		$this->consumption[] = $c;
+		if( $c >= 0 && $c <= pow(10, 6) )
+			$this->consumption[] = $c;
 
 		return true;
 	}

@@ -23,7 +23,7 @@ class Feynman extends AcmApi{
 
 		if ($this->handle) {
 		    while (($line = fgets($this->handle)) !== false) {
-		    	if( (int)$line > 0 )
+		    	if( (int)$line > 0 && (int)$line <= 100 )
 		    		echo $this->calculate_square( (int)$line ).'<br />';
 		    }
 	    }
